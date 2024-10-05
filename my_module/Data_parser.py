@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-# CSV file names
+# List of CSV file names
 file_names = [
     'Coriolanus.csv',
     'MAAN.csv',
@@ -9,7 +9,10 @@ file_names = [
     'Richard-II.csv',
     'RomeoAndJuliet.csv',
     'The-Tempest.csv',
-    'The-Winter_s-Tale.csv'
+    'The-Winter_s-Tale.csv',
+    'Sherlock_noSign.csv',
+    'Sherlock_nosprt.csv',
+    'Sherlock_sprt.csv'
 ]
 
 def process_file(file_name):
@@ -22,9 +25,9 @@ def process_file(file_name):
     new_data = []
 
     for index, row in df.iterrows():
-        # Get words from the current row, excluding NaN, 'Default', '.', and ','
+        # Get words from the current row, excluding NaN, 'Default', '.', ',', 'nan', and 'NaN'
         words = row.dropna().tolist()
-        words = [word for word in words if word not in ['Default', '.', ',']]
+        words = [word for word in words if word not in ['Default', '.', ',', 'nan', 'NaN']]
         
         if len(words) < 20:
             # If the row has less than 20 words, fetch words from the next rows
@@ -32,7 +35,7 @@ def process_file(file_name):
                 index += 1  # Move to the next row
                 next_row = df.iloc[index]
                 next_words = next_row.dropna().tolist()
-                next_words = [word for word in next_words if word not in ['Default', '.', ',']]
+                next_words = [word for word in next_words if word not in ['Default', '.', ',', 'nan', 'NaN']]
                 words.extend(next_words)  # Add words from the next row
             
             # Slice the words to get exactly 20
@@ -52,12 +55,12 @@ def process_file(file_name):
     print(f"Updated {file_name} with 20 words per line, without NaN, 'Default', '.', and ',' values.")
 
 def main():
-    print("수정할 CSV 파일 목록:")
+    print("List of CSV files to be modified:")
     for i, file_name in enumerate(file_names, start=1):
         print(f"{i}. {file_name}")
 
-    # 파일 선택
-    choice = input("수정할 파일 번호를 입력하세요: ")
+    # Select a file
+    choice = input("Enter the number of the file to modify: ")
 
     try:
         index = int(choice) - 1
@@ -65,9 +68,9 @@ def main():
             selected_file = file_names[index]
             process_file(selected_file)
         else:
-            print("유효하지 않은 선택입니다.")
+            print("Invalid selection.")
     except ValueError:
-        print("숫자를 입력해야 합니다.")
+        print("You must enter a number.")
 
 if __name__ == "__main__":
     main()
