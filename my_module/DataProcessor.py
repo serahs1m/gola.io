@@ -14,7 +14,9 @@ file_names = [
     'The-Winter_s-Tale.csv',
     'Sherlock_noSign.csv',
     'Sherlock_nosprt.csv',
-    'Sherlock_sprt.csv'
+    'Sherlock_sprt.csv',
+    'Coriolanus_noSign.csv'
+
 ]
 
 def process_file_with_data_parser():

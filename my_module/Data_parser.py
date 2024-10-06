@@ -7,12 +7,13 @@ file_names = [
     'MAAN.csv',
     'macbeth.csv',
     'Richard-II.csv',
-    'RomeoAndJuliet.csv',
+    'RomeonJuliet.csv',
     'The-Tempest.csv',
     'The-Winter_s-Tale.csv',
     'Sherlock_noSign.csv',
     'Sherlock_nosprt.csv',
-    'Sherlock_sprt.csv'
+    'Sherlock_sprt.csv',
+    'Coriolanus_noSign.csv'
 ]
 
 def process_file(file_name):
