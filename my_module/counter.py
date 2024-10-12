@@ -26,14 +26,8 @@ file_names = [
     'Coriolanus_noSign.csv'
 ]
 
-# Define pairs of POS tags to track (verb-noun, adjective-adverb, etc.)
-target_pos_pairs = [
-    ('VERB', 'NOUN'),  # Verb followed by Noun
-    ('ADJ', 'ADV'),    # Adjective followed by Adverb
-    ('ADV', 'ADJ'),    # Adverb followed by Adjective
-    ('NOUN', 'ADJ'),   # Noun followed by Adjective
-    ('VERB', 'ADV'),   # Verb followed by Adverb
-]
+# List of available POS tags
+pos_tags = ['NOUN', 'VERB', 'ADJ', 'ADV', 'PRON', 'DET', 'ADP', 'NUM', 'CONJ']
 
 # Function to count POS in the given text
 def count_pos(text):
@@ -41,25 +35,19 @@ def count_pos(text):
     pos_count = Counter([token.pos_ for token in doc])
     return pos_count
 
-# Function to find and count POS pairs in the given text
-def count_pos_pairs(doc, target_pairs):
-    pos_pairs = []
+# Function to find and count occurrences of selected POS followed by any POS
+def count_pos_followed_by_all(doc, selected_pos):
+    pos_following_counts = Counter()
     
-    # Loop through tokens in the document
     for i in range(len(doc) - 1):
-        pos_pair = (doc[i].pos_, doc[i + 1].pos_)
-        
-        # If the POS pair matches one of the target pairs, record it
-        if pos_pair in target_pairs:
-            pos_pairs.append(pos_pair)
+        if doc[i].pos_ == selected_pos:
+            following_pos = doc[i + 1].pos_
+            pos_following_counts[(selected_pos, following_pos)] += 1
 
-    # Count the frequency of each pair
-    pair_count = Counter(pos_pairs)
-    
-    return pair_count
+    return pos_following_counts
 
-# Analyze both POS counts and POS pairs in a CSV file
-def analyze_pos_in_file(file_name):
+# Analyze POS counts and POS followed by other POS in a CSV file
+def analyze_pos_in_file(file_name, selected_pos):
     # Read the file
     file_path = os.path.join('Shakespeare', file_name)
     
@@ -71,30 +59,30 @@ def analyze_pos_in_file(file_name):
         return
 
     all_pos_counts = Counter()
-    all_pos_pair_counts = Counter()
+    pos_following_counts = Counter()
     
     # Process each row of the CSV file
     for row in df.itertuples(index=False):
         text = " ".join([str(cell) for cell in row if pd.notna(cell)])
         doc = nlp(text)
 
-        # Count POS and POS pairs
+        # Count POS
         pos_in_row = count_pos(text)
-        pos_pairs_in_row = count_pos_pairs(doc, target_pos_pairs)
-
-        # Update the overall counters
         all_pos_counts.update(pos_in_row)
-        all_pos_pair_counts.update(pos_pairs_in_row)
+
+        # Count POS followed by any POS
+        pos_in_row_followed_by = count_pos_followed_by_all(doc, selected_pos)
+        pos_following_counts.update(pos_in_row_followed_by)
 
     # Output POS count results
     print(f"\n{file_name} POS counts:")
     for pos, count in all_pos_counts.most_common():
         print(f"{pos}: {count}")
 
-    # Output POS pair count results
-    print(f"\n{file_name} POS pair counts:")
-    for pair, count in all_pos_pair_counts.most_common():
-        print(f"{pair}: {count}")
+    # Output POS followed by other POS results
+    print(f"\n{file_name}: {selected_pos} followed by other POS counts:")
+    for pos_pair, count in pos_following_counts.most_common():
+        print(f"{pos_pair[0]} followed by {pos_pair[1]}: {count}")
 
 # Function to select a CSV file from the list
 def select_file():
@@ -116,14 +104,40 @@ def select_file():
         print("You must enter a number.")
         return None
 
+# Function to select a POS from the list
+def select_pos(prompt):
+    print(f"\n{prompt}:")
+    for i, pos_tag in enumerate(pos_tags, start=1):
+        print(f"{i}. {pos_tag}")
+    
+    # Ask the user to choose a POS
+    choice = input("Enter the number of the POS you want to analyze: ")
+    
+    try:
+        index = int(choice) - 1
+        if 0 <= index < len(pos_tags):
+            return pos_tags[index]
+        else:
+            print("Invalid selection.")
+            return None
+    except ValueError:
+        print("You must enter a number.")
+        return None
+
 # Main function to run the analysis
 def main():
     # File selection
     selected_file = select_file()
 
     if selected_file:
-        # Perform POS and POS pair analysis
-        analyze_pos_in_file(selected_file)
+        # Select POS for analysis
+        selected_pos = select_pos("Select the POS to check what follows")
+        
+        if selected_pos:
+            # Perform POS count and POS followed by another POS analysis
+            analyze_pos_in_file(selected_file, selected_pos)
+        else:
+            print("Invalid POS selection.")
     else:
         print("No valid file selected.")
 
