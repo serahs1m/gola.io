@@ -67,7 +67,7 @@ def analyze_pos_in_file(file_name, selected_pos):
         doc = nlp(text)
 
         # Count POS
-        pos_in_row = count_pos(text)
+        pos_in_row = count_pos(doc)
         all_pos_counts.update(pos_in_row)
 
         # Count POS followed by any POS
