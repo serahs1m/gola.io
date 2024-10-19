@@ -45,29 +45,7 @@ def remove_repeating_patterns(words):
                 return remove_repeating_patterns(words[:start + size] + words[start + size * 2:])
     return words
 
-# Function to process rows and ensure there are exactly 20 words, filling with next rows if necessary
-def process_rows_and_ensure_20(df, index, words):
-    # If the row has less than 20 words, fetch words from the next rows
-    while len(words) < 20 and (index + 1) < len(df):
-        index += 1  # Move to the next row
-        next_row = df.iloc[index]
-        next_words = next_row.dropna().tolist()
-        next_words = [word for word in next_words if word not in ['Default', '.', ',', 'nan', 'NaN']]
-        
-        # Remove repeating patterns from the next row's words
-        next_words = remove_repeating_patterns(next_words)
-        next_words = remove_consecutive_repeats(next_words)  # Also remove consecutive duplicates
-        
-        words.extend(next_words)  # Add words from the next row
-    
-    # Slice the words to get exactly 20
-    words = words[:20]
-    
-    # Fill with empty strings if there are fewer than 20 words
-    words.extend([''] * (20 - len(words)))
-    
-    return words, index
-
+# Function to process and store all words in one row
 def process_file(file_name):
     file_path = os.path.join('Shakespeare', file_name)
 
@@ -77,8 +55,7 @@ def process_file(file_name):
     # New data to store processed rows
     new_data = []
 
-    index = 0
-    while index < len(df):
+    for index in range(len(df)):
         row = df.iloc[index]
         
         # Get words from the current row, excluding NaN, 'Default', '.', ',', 'nan', and 'NaN'
@@ -91,22 +68,16 @@ def process_file(file_name):
         # Step 2: Remove consecutive repeating words
         words = remove_consecutive_repeats(words)
 
-        # Step 3: Ensure there are exactly 20 words per row
-        words, index = process_rows_and_ensure_20(df, index, words)
+        # Add the processed words to new data
+        new_data.extend(words)  # Flatten the list to keep all words in one row
 
-        # Add the processed row
-        new_data.append(words)
-
-        # Increment index to move to the next row
-        index += 1
-
-    # Create a new DataFrame and remove trailing commas
-    new_df = pd.DataFrame(new_data)
+    # Create a new DataFrame
+    new_df = pd.DataFrame(new_data).T  # Transpose to have one row
 
     # Save the new DataFrame back to CSV without trailing empty cells
     new_df.to_csv(file_path, index=False, header=False)
 
-    print(f"Updated {file_name}: Removed repeating patterns, consecutive repeats, adjusted to 20 words per row, and removed trailing commas.")
+    print(f"Updated {file_name}: Removed repeating patterns, consecutive repeats, and added all words in a single row.")
 
 def main():
     print("List of CSV files to be modified:")
