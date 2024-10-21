@@ -32,19 +32,6 @@ def remove_consecutive_repeats(words):
     
     return unique_words
 
-# Improved function to remove repeating patterns
-def remove_repeating_patterns(words):
-    length = len(words)
-    
-    # Iterate through potential sizes of repeating patterns
-    for size in range(1, length // 2 + 1):
-        for start in range(length - size * 2 + 1):
-            # Find repeating sequences
-            if words[start:start + size] == words[start + size:start + size * 2]:
-                # Recursively remove repeating patterns from the remaining list
-                return remove_repeating_patterns(words[:start + size] + words[start + size * 2:])
-    return words
-
 # Function to process and store all words in one row
 def process_file(file_name):
     file_path = os.path.join('Shakespeare', file_name)
@@ -62,9 +49,6 @@ def process_file(file_name):
         words = row.dropna().tolist()
         words = [word for word in words if word not in ['Default', '.', ',', 'nan', 'NaN']]
         
-        # Step 1: Remove repeating patterns
-        words = remove_repeating_patterns(words)
-
         # Step 2: Remove consecutive repeating words
         words = remove_consecutive_repeats(words)
 
