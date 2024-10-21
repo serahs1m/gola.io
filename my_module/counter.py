@@ -1,8 +1,3 @@
-# to run the code you need to download spacy first 
-# (follow two lines code to the terminal)
-# pip install spacy
-# python -m spacy download en_core_web_sm
-
 import os
 import pandas as pd
 import spacy
@@ -84,6 +79,69 @@ def analyze_pos_in_file(file_name, selected_pos):
     for pos_pair, count in pos_following_counts.most_common():
         print(f"{pos_pair[0]} followed by {pos_pair[1]}: {count}")
 
+# Function to analyze clauses
+def analyze_clauses_in_file(file_name):
+    # Read the file
+    file_path = os.path.join('Shakespeare', file_name)
+    
+    try:
+        df = pd.read_csv(file_path, header=None)
+        print(f"{file_name} file read successfully.")
+    except FileNotFoundError:
+        print(f"File not found: {file_name}")
+        return
+
+    # Initialize counters for each type of clause
+    noun_clause_count = 0
+    adjective_clause_count = 0
+    adverb_clause_count = 0
+    independent_clause_count = 0
+    dependent_clause_count = 0
+
+    # Process each row of the CSV file
+    for row in df.itertuples(index=False):
+        text = " ".join([str(cell) for cell in row if pd.notna(cell)])
+        doc = nlp(text)
+
+        # Analyze clauses
+        for sent in doc.sents:
+            # Noun clause
+            if any(tok.dep_ in ['nsubj', 'dobj', 'attr'] for tok in sent):
+                noun_clause_count += 1
+                if noun_clause_count == 1:
+                    print(f"\nFirst noun clause:\n{text}")
+
+            # Adjective clause
+            if any(tok.dep_ in ['amod', 'relcl'] for tok in sent):
+                adjective_clause_count += 1
+                if adjective_clause_count == 1:
+                    print(f"\nFirst adjective clause:\n{text}")
+
+            # Adverb clause
+            if any(tok.dep_ in ['advmod', 'prep'] for tok in sent):
+                adverb_clause_count += 1
+                if adverb_clause_count == 1:
+                    print(f"\nFirst adverb clause:\n{text}")
+
+            # Independent clause (ROOT)
+            if any(tok.dep_ == 'ROOT' for tok in sent):
+                independent_clause_count += 1
+                if independent_clause_count == 1:
+                    print(f"\nFirst independent clause:\n{text}")
+
+            # Dependent clause (mark, advcl, ccomp)
+            if any(tok.dep_ in ['mark', 'advcl', 'ccomp'] for tok in sent):
+                dependent_clause_count += 1
+                if dependent_clause_count == 1:
+                    print(f"\nFirst dependent clause:\n{text}")
+
+    # Output the clause counts
+    print(f"\nTotal noun clauses: {noun_clause_count}")
+    print(f"Total adjective clauses: {adjective_clause_count}")
+    print(f"Total adverb clauses: {adverb_clause_count}")
+    print(f"Total independent clauses: {independent_clause_count}")
+    print(f"Total dependent clauses: {dependent_clause_count}")
+
 # Function to select a CSV file from the list
 def select_file():
     print("\nSelect a CSV file to analyze:")
@@ -126,18 +184,31 @@ def select_pos(prompt):
 
 # Main function to run the analysis
 def main():
+    # Display selection options
+    print("\nSelect the analysis type:")
+    print("1. POS Analysis")
+    print("2. Clause Analysis")
+    
+    # Ask the user to select the analysis type
+    analysis_choice = input("Enter the number corresponding to the analysis type: ")
+
     # File selection
     selected_file = select_file()
 
     if selected_file:
-        # Select POS for analysis
-        selected_pos = select_pos("Select the POS to check what follows")
-        
-        if selected_pos:
-            # Perform POS count and POS followed by another POS analysis
-            analyze_pos_in_file(selected_file, selected_pos)
+        if analysis_choice == '1':  # POS Analysis
+            # Select POS for analysis
+            selected_pos = select_pos("Select the POS to check what follows")
+            if selected_pos:
+                # Perform POS count and POS followed by another POS analysis
+                analyze_pos_in_file(selected_file, selected_pos)
+            else:
+                print("Invalid POS selection.")
+        elif analysis_choice == '2':  # Clause Analysis
+            # Perform clause analysis
+            analyze_clauses_in_file(selected_file)
         else:
-            print("Invalid POS selection.")
+            print("Invalid selection. Please choose either 1 or 2.")
     else:
         print("No valid file selected.")
 
