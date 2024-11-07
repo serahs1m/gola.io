@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import spacy
 from collections import Counter
+import time
 
 # Load the spaCy model
 nlp = spacy.load("en_core_web_sm")
@@ -184,6 +185,8 @@ def select_pos(prompt):
 
 # Main function to run the analysis
 def main():
+    start_time = time.time()
+
     # Display selection options
     print("\nSelect the analysis type:")
     print("1. POS Analysis")
@@ -211,6 +214,11 @@ def main():
             print("Invalid selection. Please choose either 1 or 2.")
     else:
         print("No valid file selected.")
+
+    end_time = time.time()
+    runtime = end_time - start_time
+    print(f"\nRuntime: {runtime:.2f} seconds")
+
 
 if __name__ == "__main__":
     main()
