@@ -66,46 +66,35 @@ def analyze_pos_in_file(file_name):
         pos_following_counts.update(pos_in_row_followed_by)
         total_pos_counts.update(pos_in_row_counts)
 
-    # Output total POS counts
-    print(f"\nTotal POS counts in {file_name}:")
-    for pos, count in total_pos_counts.items():
-        print(f"{pos}: {count}")
-
-    # Output POS followed by other POS results for each POS tag
-    print(f"\n{file_name} POS followed by other POS counts:")
+    # Prepare structured data for POS following counts CSV
+    pos_following_data = []
     for selected_pos in pos_tags:
-        print(f"\n{selected_pos} followed by other POS counts:")
-        found = False  
         for pos_pair, count in pos_following_counts.items():
             if pos_pair[0] == selected_pos:
-                print(f"{pos_pair[0]} followed by {pos_pair[1]}: {count}")
-                found = True
-        if not found:
-            print(f"No occurrences found for {selected_pos}")
+                pos_following_data.append({
+                    "POS": pos_pair[0],
+                    "Followed by POS": pos_pair[1],
+                    "Count": count
+                })
 
-    # Prepare data for export
-    pos_counts_data = []
-    for pos, count in total_pos_counts.items():
-        pos_counts_data.append({"POS": pos, "Total Count": count})
+    # Save POS following counts to CSV
+    pos_following_file = f"{file_name}_pos_following_counts.csv"
+    if os.path.exists(pos_following_file):
+        os.remove(pos_following_file)
+    pos_following_df = pd.DataFrame(pos_following_data)
+    pos_following_df.to_csv(pos_following_file, index=False)
 
-    pos_following_data = []
-    for pos_pair, count in pos_following_counts.items():
-        pos_following_data.append({
-            "POS": pos_pair[0],
-            "Followed by POS": pos_pair[1],
-            "Count": count
-        })
+    # Prepare structured data for total POS counts CSV
+    pos_counts_data = [{"POS": pos, "Total Count": count} for pos, count in total_pos_counts.items()]
 
     # Save total POS counts to CSV
+    pos_counts_file = f"{file_name}_total_pos_counts.csv"
+    if os.path.exists(pos_counts_file):
+        os.remove(pos_counts_file)
     pos_counts_df = pd.DataFrame(pos_counts_data)
-    pos_counts_df.to_csv(f"{file_name}_total_pos_counts.csv", index=False)
+    pos_counts_df.to_csv(pos_counts_file, index=False)
     
-    # Save POS followed by other POS counts to CSV
-    pos_following_df = pd.DataFrame(pos_following_data)
-    pos_following_df.to_csv(f"{file_name}_pos_following_counts.csv", index=False)
-    
-    print(f"\nResults have been exported to {file_name}_total_pos_counts.csv and {file_name}_pos_following_counts.csv")
-
+    print(f"\nResults have been exported to {pos_following_file} and {pos_counts_file}")
 
 # Main function to run the analysis
 def main():
@@ -131,7 +120,6 @@ def main():
     end_time = time.time()
     runtime = end_time - start_time
     print(f"\nRuntime: {runtime:.2f} seconds")
-
 
 if __name__ == "__main__":
     main()
