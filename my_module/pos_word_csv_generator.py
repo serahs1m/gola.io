@@ -1,72 +1,73 @@
 import os
 import pandas as pd
 import spacy
+import re
 
-# Load the SpaCy model
-nlp = spacy.load("en_core_web_sm")
+# Load the SpaCy model (change to "en_core_web_sm" if needed)
+nlp = spacy.load("en_core_web_trf")
 
-# Function to add POS and Word columns and save to a new CSV file
-def create_pos_word_csv(input_file, output_file):
+def clean_text(text):
+    """
+    Cleans input text by removing unwanted characters and extra spaces.
+    """
+    text = re.sub(r"[^a-zA-Z0-9\s.,]", "", text)  # Remove special characters except ., and spaces
+    text = re.sub(r"\s+", " ", text).strip()  # Remove extra spaces
+    return text
+
+def create_pos_grouped_csv(input_file, output_file):
     try:
-        # Read the CSV file
-        df = pd.read_csv(input_file)
-        
-        # Ensure the CSV has text data to process
-        if df.empty:
-            print(f"Error: {input_file} is empty.")
+        # Read the input file
+        df = pd.read_csv(input_file, header=None, names=["Sentence"])
+
+        if df.empty or df["Sentence"].dropna().empty:
+            print(f"Error: {input_file} is empty or does not contain valid sentences.")
             return
-        
-        # Concatenate all text into one string to process it with SpaCy
-        text = " ".join(df.iloc[:, 0].dropna().astype(str))  # Assuming text is in the first column
-        
-        # Process text with SpaCy to generate POS and Word data
-        doc = nlp(text)
-        data = [{"Word": token.text, "POS": token.pos_} for token in doc if token.text.strip()]
-        
-        # Convert data to DataFrame and save to CSV
-        pos_word_df = pd.DataFrame(data)
-        pos_word_df.to_csv(output_file, index=False)
-        print(f"POS and Word columns have been saved to {output_file}.")
-        
+
+        # Initialize POS groups
+        pos_groups = {
+            "noun": [],
+            "verb": [],
+            "adjective": [],
+            "adverb": [],
+            "others": []
+        }
+
+        # Process each sentence
+        for sentence in df["Sentence"].dropna():
+            sentence = clean_text(sentence)  # Clean the text
+            if len(sentence.split()) < 5:  # Skip sentences with fewer than 5 words
+                continue
+            doc = nlp(sentence)
+            for token in doc:
+                if token.text.strip():  # Skip empty tokens
+                    if token.pos_ == "NOUN":
+                        pos_groups["noun"].append(token.text)
+                    elif token.pos_ == "VERB":
+                        pos_groups["verb"].append(token.text)
+                    elif token.pos_ == "ADJ":
+                        pos_groups["adjective"].append(token.text)
+                    elif token.pos_ == "ADV":
+                        pos_groups["adverb"].append(token.text)
+                    else:
+                        pos_groups["others"].append(token.text)
+
+        # Align data lengths for CSV export
+        max_len = max(len(pos_groups[key]) for key in pos_groups)
+        grouped_data = {key: values + [""] * (max_len - len(values)) for key, values in pos_groups.items()}
+        grouped_df = pd.DataFrame(grouped_data)
+
+        # Save the grouped data to a new CSV file
+        grouped_df.to_csv(output_file, index=False)
+        print(f"Grouped POS data has been saved to {output_file}.")
+
     except Exception as e:
         print(f"Error processing the file: {e}")
 
-# Main function to create POS and Word CSV
-def main_create_pos_word_csv():
-    # List of available files (CSV files)
-    file_names = [
-        'Coriolanus.csv',
-        'MAAN.csv',
-        'macbeth.csv',
-        'Richard-II.csv',
-        'RomeonJuliet.csv',
-        'The-Tempest.csv',
-        'The-Winter_s-Tale.csv',
-        'Sherlock_noSign.csv',
-        'Sherlock_nosprt.csv',
-        'Sherlock_sprt.csv',
-        'Coriolanus_noSign.csv'
-    ]
-    
-    # Display file options to the user
-    print("\nSelect a CSV file to create POS and Word columns:")
-    for i, file_name in enumerate(file_names, start=1):
-        print(f"{i}. {file_name}")
-
-    # Prompt the user for file selection
-    choice = input("Enter the number of the file: ")
-
-    try:
-        index = int(choice) - 1
-        if 0 <= index < len(file_names):
-            selected_file = file_names[index]
-            input_file = os.path.join('Shakespeare', selected_file)  # Correct path
-            output_file = f"{selected_file}_pos_word.csv"
-            create_pos_word_csv(input_file, output_file)
-        else:
-            print("Invalid selection.")
-    except ValueError:
-        print("You must enter a number.")
+# Main function
+def main_create_pos_grouped_csv():
+    input_file = "Shakespeare/Hello.csv"  # Input file
+    output_file = "Shakespeare/Hello_grouped_pos.csv"  # Output file
+    create_pos_grouped_csv(input_file, output_file)
 
 if __name__ == "__main__":
-    main_create_pos_word_csv()
+    main_create_pos_grouped_csv()
