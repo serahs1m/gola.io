@@ -17,7 +17,7 @@ This project consists of four Python scripts designed for text data preprocessin
 **Usage**:
 - The script interactively asks the user to select a CSV file for processing.
 - Cleans and transforms the file.
-- Designed to work with CSV files located in the `Shakespeare` directory.
+- Designed to work with CSV files.
 
 ---
 
