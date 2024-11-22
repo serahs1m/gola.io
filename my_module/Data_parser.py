@@ -49,7 +49,7 @@ def process_file(file_name):
         words = row.dropna().tolist()
         words = [word for word in words if word not in ['Default', '.', ',', 'nan', 'NaN']]
         
-        # Step 2: Remove consecutive repeating words
+        # Remove consecutive repeating words
         words = remove_consecutive_repeats(words)
 
         # Add the processed words to new data
