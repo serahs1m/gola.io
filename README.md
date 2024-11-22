@@ -21,8 +21,8 @@ This project consists of four Python scripts designed for text data preprocessin
 
 ---
 
-### 2. **DataProcessor.py**
-`DataProcessor.py` performs analytical operations on text data after preprocessing.
+### 2. **DataAnalyzer.py**
+`DataAnalyzer.py` is a tool for performing various analytical operations on preprocessed data.
 
 **Features**:
 - Integrates `Data_parser.py` for preprocessing.
