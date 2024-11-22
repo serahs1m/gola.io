@@ -17,7 +17,7 @@ This project consists of four Python scripts designed for text data preprocessin
 **Usage**:
 - The script interactively asks the user to select a CSV file for processing.
 - Cleans and transforms the file.
-- Designed to work with CSV files located in the `Shakespeare` directory.
+- Designed to work with CSV files.
 
 ---
 
@@ -49,7 +49,6 @@ This project consists of four Python scripts designed for text data preprocessin
   2. **Total POS count**
 
 **Usage**:
-- Select a CSV file for analysis.
 - Choose a POS tag (e.g., NOUN, VERB) for sequential analysis.
 - Outputs results as CSV files for further inspection.
 
@@ -83,7 +82,6 @@ This project consists of four Python scripts designed for text data preprocessin
 - Exports reconstructed sentences to a new CSV file.
 
 **Usage**:
-- Select a CSV file to process.
 - The script reads text from the selected file, applies sentence recognition rules, and outputs a new CSV file containing reconstructed sentences.
 - Example output file name: `Coriolanus.csv_reconstructed_sentences.csv`.
 
