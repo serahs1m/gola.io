@@ -1,0 +1,13 @@
+<div class="container">
+    <h2 class="title">🎯 Choose Difficulty</h2>
+    <p class="subtitle">Select a difficulty level for the chosen skill:</p>
+  
+    <ul class="skill-list">
+      <li *ngFor="let diff of difficulties">
+        <button class="skill-button" (click)="selectDifficulty(diff)">
+          {{ diff }}
+        </button>
+      </li>
+    </ul>
+  </div>
+  

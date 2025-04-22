@@ -1,0 +1,39 @@
+<div *ngIf="questions.length > 0; else noQuestions" class="question-container">
+
+  <h1 class="skill">📂 유형: {{ questions[currentQuestionIndex].skill }}</h1>
+
+  <h2 class="difficulty">
+    📘 난이도: {{ questions[currentQuestionIndex].difficulty }}
+    <span *ngIf="difficultySlug !== 'random'" class="progress">
+      ({{ progressNumber }} / {{ questions.length }})
+    </span>
+  </h2>
+
+  <p class="question">
+    <strong>문제:</strong> {{ questions[currentQuestionIndex].question }}
+  </p>
+
+  <input
+    class="answer-input"
+    [(ngModel)]="userAnswer"
+    placeholder="정답을 입력하세요" />
+
+  <button class="check-button" (click)="checkAnswer()">정답 확인</button>
+
+  <p *ngIf="feedback" class="feedback">{{ feedback }}</p>
+
+  <button
+    *ngIf="incorrectCount >= 3 && !showAnswer"
+    class="hint-button"
+    (click)="showHint()">힌트 보기 🔍</button>
+
+  <div *ngIf="showAnswer" class="answer-section">
+    <p><strong>정답:</strong> {{ questions[currentQuestionIndex].answer }}</p>
+    <p><strong>💡 해설:</strong> {{ questions[currentQuestionIndex].explanation }}</p>
+    <button class="next-button" (click)="nextQuestion()">다음 문제 →</button>
+  </div>
+</div>
+
+<ng-template #noQuestions>
+  <p>선택한 skill·난이도에 해당하는 문제가 없습니다.</p>
+</ng-template>

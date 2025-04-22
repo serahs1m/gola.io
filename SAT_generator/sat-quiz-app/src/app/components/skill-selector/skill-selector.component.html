@@ -1,0 +1,10 @@
+<h2 class="title">📝 Choose a Skill</h2>
+<p class="subtitle">Select a math skill below to start solving SAT-style questions:</p>
+
+<ul class="skill-list">
+  <li *ngFor="let skill of skills">
+    <button class="skill-button" (click)="goToQuiz(skill)">
+      {{ skill }}
+    </button>
+  </li>
+</ul>
