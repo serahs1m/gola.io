@@ -1,6 +1,7 @@
 
-import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-import { Domain, Skill, Difficulty } from '../data/satData';
+import React, { createContext, useContext, useState, ReactNode, useCallback, useMemo } from 'react';
+import { Domain, Skill, Difficulty, domains } from '../data/satData';
+import { questions as allQuestions, Question } from "@/data/question";
 
 interface SkillDifficulty {
   skillId: string;
@@ -12,6 +13,7 @@ interface QuestionBankContextType {
   selectedSkills: Skill[];
   selectedDifficulties: Difficulty[];
   skillDifficulties: SkillDifficulty[];
+  filteredQuestions: Question[];
   setSelectedDomain: (domain: Domain) => void; // Keep for backward compatibility
   toggleDomainSelection: (domain: Domain) => void;
   setSelectedDomains: (domains: Domain[]) => void;
@@ -61,6 +63,25 @@ export const QuestionBankProvider: React.FC<{ children: ReactNode }> = ({ childr
     setSkillDifficulties([]);
   }, []);
 
+  const filteredQuestions = useMemo(() => {
+    if (!skillDifficulties.length) return [];
+  
+    return allQuestions.filter(q => {
+      return skillDifficulties.some(sd =>
+        q.skill.trim() === getSkillNameById(sd.skillId) &&
+        q.difficulty === sd.difficulty
+      );
+    });
+  }, [skillDifficulties]);
+    
+  function getSkillNameById(skillId: string): string | undefined {
+    for (const domain of domains) {
+      const match = domain.skills.find(skill => skill.id === skillId);
+      if (match) return match.name;
+    }
+    return undefined;
+  }
+
   return (
     <QuestionBankContext.Provider
       value={{
@@ -74,7 +95,8 @@ export const QuestionBankProvider: React.FC<{ children: ReactNode }> = ({ childr
         setSelectedSkills,
         setSelectedDifficulties,
         setSkillDifficulties,
-        resetSelections
+        resetSelections,
+        filteredQuestions
       }}
     >
       {children}

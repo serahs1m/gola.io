@@ -21,6 +21,11 @@
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": false,
 
+    /* JSON import */
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

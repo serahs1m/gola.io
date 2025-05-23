@@ -10,6 +10,8 @@ import SkillsSelection from "./pages/SkillsSelection";
 import DifficultiesSelection from "./pages/DifficultiesSelection";
 import Summary from "./pages/Summary";
 import NotFound from "./pages/NotFound";
+import Practice from "./pages/Practice";
+import TestJson from "./pages/TestJson";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,8 @@ const App = () => (
             <Route path="/difficulties/:domainId" element={<DifficultiesSelection />} />
             <Route path="/summary" element={<Summary />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/practice" element={<Practice />} />
+            <Route path="/test-json" element={<TestJson />} />
           </Routes>
         </BrowserRouter>
       </QuestionBankProvider>

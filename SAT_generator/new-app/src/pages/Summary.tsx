@@ -24,6 +24,10 @@ const Summary = () => {
     navigate('/');
   };
 
+  const handleStartPractice = () => {
+    navigate("/practice");
+  };  
+
   // Group skills by domain
   const groupedSkills = selectedDomains.map(domain => {
     // Find skills for this domain
@@ -90,8 +94,8 @@ const Summary = () => {
       </div>
 
       <div className="mt-8 flex justify-center">
-        <Button onClick={handleStartOver}>
-          Start Over
+        <Button onClick={handleStartPractice}>
+          Start Practice
         </Button>
       </div>
     </div>
