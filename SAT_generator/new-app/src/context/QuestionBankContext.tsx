@@ -8,7 +8,7 @@ interface SkillDifficulty {
   difficulty: Difficulty;
 }
 
-interface QuestionBankContextType {
+export interface QuestionBankContextType {
   selectedDomains: Domain[];
   selectedSkills: Skill[];
   selectedDifficulties: Difficulty[];
@@ -104,7 +104,7 @@ export const QuestionBankProvider: React.FC<{ children: ReactNode }> = ({ childr
   );
 };
 
-export const useQuestionBank = () => {
+export const useQuestionBank = (): QuestionBankContextType => {
   const context = useContext(QuestionBankContext);
   if (context === undefined) {
     throw new Error('useQuestionBank must be used within a QuestionBankProvider');

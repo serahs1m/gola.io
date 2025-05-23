@@ -12,6 +12,8 @@ import Summary from "./pages/Summary";
 import NotFound from "./pages/NotFound";
 import Practice from "./pages/Practice";
 import TestJson from "./pages/TestJson";
+import AnalyzePage from "./pages/AnalyzePage";
+import AnalyzeLoadingPage from "./pages/AnalyzeLoadingPage";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,8 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
             <Route path="/practice" element={<Practice />} />
             <Route path="/test-json" element={<TestJson />} />
+            <Route path="/analyze-loading" element={<AnalyzeLoadingPage />} />
+            <Route path="/analyze" element={<AnalyzePage />} />
           </Routes>
         </BrowserRouter>
       </QuestionBankProvider>

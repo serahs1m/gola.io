@@ -11,6 +11,15 @@ export interface Domain {
   skills: Skill[];
 }
 
+export interface Question {
+  id: string;
+  question: string;
+  answer: string;
+  explanation: string;
+  difficulty: string;
+  skillId: string;
+}
+
 export const domains: Domain[] = [
   {
     id: "algebra",
