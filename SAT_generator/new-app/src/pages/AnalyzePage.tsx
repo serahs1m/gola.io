@@ -102,7 +102,7 @@ Each similar question must match the same domain, skill & difficulty.
       } catch (e) {
         console.error("❌ GPT fetch/parse error:", e);
         setAnalysis({
-          summary: "⚠️ 분석에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+          summary: "⚠️ Unable to load analysis. Please try again later.",
           weakSkills: [],
           similar: [],
         });
@@ -234,14 +234,14 @@ const ChoiceModal: React.FC<ChoiceModalProps> = ({
       <AlertDialogHeader>
         <AlertDialogTitle>Upgrade your insights?</AlertDialogTitle>
         <p className="text-muted-foreground">
-          무료로 요약과 약점 분석을 볼 수 있습니다. 로그인하면 추가 맞춤
-          문제까지 받아보세요.
+          You can view a summary and weakness analysis for free. 
+          Log in to receive personalized practice questions as well.
         </p>
       </AlertDialogHeader>
       <AlertDialogFooter>
         <AlertDialogCancel onClick={onFree}>Free analysis</AlertDialogCancel>
         <AlertDialogAction onClick={onPaid}>
-          Login &amp; get extra
+          Log in for Extra Practice
         </AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
