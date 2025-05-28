@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+
 import {
   AlertDialog,
   AlertDialogContent,
@@ -10,9 +11,11 @@ import {
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Loader2Icon, ChevronLeft, ChevronRight } from "lucide-react";
 import { Question } from "@/data/question";
+import { FeedbackSection } from "@/components/ui/FeedbackSection";
+import { MessageSquare } from "lucide-react";
 
 /* ─── 타입 ───────────────────────────────────────────── */
 type WeakSkill = { skill: string; count: number; tip: string };
@@ -167,28 +170,59 @@ Each similar question must match the same domain, skill & difficulty.
       />
 
       {/* 헤드라인 */}
-      <h1 className="text-3xl font-bold">🧠 Analysis Result</h1>
-      <p className="text-lg">{analysis.summary}</p>
+      <h1 className="text-4xl font-semibold leading-tight text-center text-gray-800 mb-6">
+  Analysis Result
+</h1>
 
-      {/* 약점 카드 */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {analysis.weakSkills.map((ws, i) => (
-          <Card key={i} className="p-4 space-y-1">
-            <h3 className="font-semibold">{ws.skill}</h3>
-            <p className="text-sm text-muted-foreground">
-              Incorrects: {ws.count}
-            </p>
-            <p className="text-sm">Tip: {ws.tip}</p>
-          </Card>
-        ))}
-      </div>
+
+<Card className="mb-6 border-0 shadow-lg bg-gradient-to-r from-blue-50 to-indigo-50">
+  <CardHeader>
+    <CardTitle className="flex items-center gap-2 text-blue-700">
+      <MessageSquare className="h-5 w-5" />
+      Personalized Feedback
+    </CardTitle>
+  </CardHeader>
+
+  <CardContent>
+    {/* Feedback summary */}
+    <div className="p-4 bg-white rounded-lg border-l-4 border-blue-400 mb-6">
+      <p className="text-gray-700 leading-relaxed">{analysis.summary}</p>
+    </div>
+
+    {/* Weak skill cards inside one card */}
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {analysis.weakSkills.map((ws, i) => (
+        <div key={i} className="p-4 bg-white rounded-lg shadow-sm border-l-4 border-red-300">
+          <h3 className="font-semibold text-gray-800 mb-1">{ws.skill}</h3>
+          <p className="text-sm text-gray-600 mb-1">
+            <strong className="text-red-500">Incorrects:</strong> {ws.count}
+          </p>
+          <p className="text-sm text-blue-700">
+            <strong>Tip:</strong> {ws.tip}
+          </p>
+        </div>
+      ))}
+    </div>
+  </CardContent>
+</Card>
+
 
       {/* 틀린 문제 슬라이더 */}
-      <WrongSlider
-        wrongQuestions={wrongQuestions}
-        idx={idx}
-        setIdx={setIdx}
-      />
+      <Card className="mb-6 border-0 shadow-lg bg-white">
+  <CardHeader>
+    <CardTitle className="text-blue-700 text-xl font-bold flex items-center gap-2">
+      ❌ Incorrect Questions
+    </CardTitle>
+  </CardHeader>
+  <CardContent>
+    <WrongSlider
+      wrongQuestions={wrongQuestions}
+      idx={idx}
+      setIdx={setIdx}
+    />
+  </CardContent>
+</Card>
+
 
       {/* 추가 문제 (유료) */}
       {includeExtra && analysis.similar.length > 0 && (
