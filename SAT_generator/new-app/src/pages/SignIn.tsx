@@ -1,81 +1,157 @@
+// src/pages/SignIn.tsx
 import { useState } from "react";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, provider } from "@/firebase";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth, googleProvider /*, appleProvider, microsoftProvider ...*/ } from "@/firebase";
+import { FcGoogle } from "react-icons/fc";
+import { FaApple } from "react-icons/fa";
+import { FiPhone } from "react-icons/fi";
 
 export default function SignIn() {
+  /** ---------------- state ---------------- */
+  const [step, setStep] = useState<"EMAIL" | "PASSWORD">("EMAIL");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  /** ---------------- handlers ------------- */
+  const handleContinue = () => {
+    if (!email.trim()) return;
+    setStep("PASSWORD");
+  };
+
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithPopup(auth, provider);
-      alert("Signed in with Google!");
-    } catch (error) {
-      console.error(error);
+      await signInWithPopup(auth, googleProvider);
+    } catch (err) {
+      console.error(err);
     }
   };
 
   const handleEmailSignIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Signed in with Email!");
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      // 이메일-패스워드 쌍이 없다면 회원가입 시도
+      if ((err as any).code === "auth/user-not-found") handleSignUp();
+      else console.error(err);
     }
   };
 
   const handleSignUp = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      alert("Account created!");
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
+  /** ---------------- ui ------------------- */
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
-        <h1 className="text-2xl font-bold text-center text-black">Sign In</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="w-full max-w-md space-y-6">
+        {/* logo / title */}
+        <h1 className="text-3xl font-semibold text-center tracking-tight">
+          {step === "EMAIL" ? "다시 오신 걸 환영합니다" : "비밀번호를 입력하세요"}
+        </h1>
 
-        <button
-          onClick={handleGoogleSignIn}
-          className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded"
-        >
-          Sign in with Google
-        </button>
+        {/* ----- STEP 1 : email ----- */}
+        {step === "EMAIL" && (
+          <>
+            <input
+              type="email"
+              autoFocus
+              placeholder="이메일 주소"
+              className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button
+              onClick={handleContinue}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-md transition"
+            >
+              계속
+            </button>
 
-        <div className="text-center text-gray-400 text-sm">OR</div>
+            <div className="flex items-center my-4">
+              <div className="flex-grow h-px bg-gray-200" />
+              <span className="px-3 text-xs text-gray-400">또는</span>
+              <div className="flex-grow h-px bg-gray-200" />
+            </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full px-4 py-2 border rounded text-sm"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full px-4 py-2 border rounded text-sm"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            {/* 소셜 버튼들 */}
+            <SocialBtn icon={<FcGoogle size={20} />} label="Google로 계속하기" onClick={handleGoogleSignIn} />
+            <SocialBtn icon={<FaApple size={18} />} label="Apple로 계속하기" disabled />
+            <SocialBtn icon={<FiPhone size={18} />} label="폰으로 계속하기" disabled />
 
-        <button
-          onClick={handleEmailSignIn}
-          className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded"
-        >
-          Sign in with Email
-        </button>
+            <p className="text-center text-xs text-gray-500">
+              계정이 없으신가요?{" "}
+              <span className="underline cursor-pointer" onClick={() => setStep("PASSWORD")}>
+                회원 가입
+              </span>
+            </p>
+          </>
+        )}
 
-        <button
-          onClick={handleSignUp}
-          className="w-full bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded mt-2"
-        >
-          Create an Account
-        </button>
+        {/* ----- STEP 2 : password ----- */}
+        {step === "PASSWORD" && (
+          <>
+            <input
+              type="password"
+              placeholder="비밀번호"
+              className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button
+              onClick={handleEmailSignIn}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-md transition"
+            >
+              로그인
+            </button>
+
+            <button
+              onClick={handleSignUp}
+              className="w-full mt-3 border border-gray-300 hover:bg-gray-50 py-3 rounded-md text-sm font-medium"
+            >
+              새 계정 만들기
+            </button>
+
+            <p
+              className="mt-6 text-xs text-gray-500 cursor-pointer hover:underline text-center"
+              onClick={() => setStep("EMAIL")}
+            >
+              ← 다른 이메일 사용
+            </p>
+          </>
+        )}
       </div>
     </div>
+  );
+}
+
+/** ------------------------------------------------------------------ */
+/** 재사용 가능한 소셜 버튼 컴포넌트                                   */
+interface SBProps {
+  icon: React.ReactNode;
+  label: string;
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
+function SocialBtn({ icon, label, onClick, disabled }: SBProps) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="w-full flex items-center gap-2 border border-gray-300 rounded-md py-2.5 px-4 mb-2
+                 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+    >
+      {icon}
+      <span className="flex-grow text-sm font-medium text-center">{label}</span>
+    </button>
   );
 }
