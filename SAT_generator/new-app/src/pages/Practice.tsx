@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Question } from "@/data/question";
 
 const Practice = () => {
-  const { filteredQuestions, skillDifficulties } = useQuestionBank();
+  const { filteredQuestions } = useQuestionBank();
   const navigate = useNavigate();
 
   const [idx, setIdx] = useState(0);
@@ -17,14 +17,26 @@ const Practice = () => {
   const [incorrect, setIncorrect] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [wrongQuestions, setWrongQuestions] = useState<Question[]>([]);
+  const [startTime] = useState<Date>(new Date());
+  const [elapsed, setElapsed] = useState("0m 0s");
 
-  // 필터 결과 없으면 홈으로 리다이렉트
   useEffect(() => {
     if (filteredQuestions.length === 0) {
       console.warn("❌ No matching questions.");
       navigate("/");
     }
   }, [filteredQuestions, navigate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const diffMs = now.getTime() - startTime.getTime();
+      const minutes = Math.floor(diffMs / 60000);
+      const seconds = Math.floor((diffMs % 60000) / 1000);
+      setElapsed(`${minutes}m ${seconds}s`);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [startTime]);
 
   if (filteredQuestions.length === 0) return null;
 
@@ -63,6 +75,7 @@ const Practice = () => {
         <p className="text-muted-foreground text-lg mt-2">
           Question {idx + 1} of {filteredQuestions.length}
         </p>
+        <p className="text-muted-foreground text-sm mt-1">⏱ Elapsed: {elapsed}</p>
       </div>
 
       <Card className="shadow-md border rounded-2xl">
