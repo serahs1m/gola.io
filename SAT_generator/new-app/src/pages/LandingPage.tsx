@@ -5,19 +5,6 @@ export default function LandingPage() {
       <>
         {<div data-layer="Desktop" className="Desktop w-full max-w-screen-xl mx-auto px-10 pb-5 relative bg-white flex flex-col justify-start items-center overflow-hidden">
   <div data-layer="Navigation" data-breakpoint="Desktop" className="Navigation self-stretch flex flex-col justify-start items-center">
-    <div data-layer="Navigation" className="Navigation w-full h-36 max-w-[1500px] pt-5 pb-20 flex justify-between items-center">
-    <div data-layer="Area" className="Area justify-center text-black text-3xl font-medium font-grotesk leading-9">Q-Bank</div>
-    <div data-layer="Button linkout" data-state="Default" className="ButtonLinkout px-5 py-3.5 bg-indigo-400 rounded-full flex justify-center items-center gap-0.5">
-  <div className="LearnMore text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">
-    Sign in
-  </div>
-      <div data-svg-wrapper data-layer="Arrow" className="Arrow">
-          <svg width="7" height="20" viewBox="0 0 7 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5.01037 11.9875V8.04598L5.64939 8.08556L0.735155 13.0055L0 12.2703L4.91423 7.35606L4.96513 7.99508H1.0066V6.99414L6 7.00545V11.9875H5.01037Z" fill="white"/>
-          </svg>
-        </div>
-      </div>
-    </div>
   </div>
   <div data-layer="Hero section" className="HeroSection w-full max-w-[1500px] flex flex-col justify-start items-start gap-60 overflow-hidden">
     <div data-layer="Hero Title" className="HeroTitle self-stretch text-center justify-start text-black text-9xl font-normal font-['Crimson_Text'] leading-[102px]">Improve Yourself.</div>
@@ -218,12 +205,6 @@ export default function LandingPage() {
       </div>
       <div data-layer="Footer Rights" className="FooterRights justify-center text-blue-500 text-xs font-normal font-['Roboto_Mono'] leading-none">All Rights Reserved</div>
     </div>
-  </div>
-  <div data-layer="Nav Items" className="NavItems size- px-6 py-5 left-[437px] top-[16px] absolute bg-white/40 rounded-[100px] backdrop-blur-lg inline-flex justify-start items-center gap-7 overflow-hidden">
-  <div data-layer="Nav Link 1" className="NavLink1 text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">Features</div>
-<div data-layer="Nav Link 2" className="NavLink2 text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">Specifications</div>
-<div data-layer="Nav Link 3" className="NavLink3 text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">How-to</div>
-<div data-layer="Nav Link 4" className="NavLink4 text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">Contact Us</div>
   </div>
 </div>}
       </>
