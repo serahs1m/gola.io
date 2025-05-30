@@ -1,24 +1,22 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useQuestionBank } from '@/context/QuestionBankContext';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
 const Summary = () => {
   const navigate = useNavigate();
-  const { selectedDomains, selectedSkills, selectedDifficulties, skillDifficulties, resetSelections } = useQuestionBank();
+  const { selectedDomains, selectedSkills, selectedDifficulties, skillDifficulties, questions, resetSelections } = useQuestionBank();
   
   if (selectedDomains.length === 0 || selectedSkills.length === 0 || selectedDifficulties.length === 0) {
-    // If any selection is missing, redirect to home
     React.useEffect(() => {
       navigate('/');
     }, [navigate]);
     return null;
   }
-  
+
   const handleStartOver = () => {
     resetSelections();
     navigate('/');
@@ -28,9 +26,8 @@ const Summary = () => {
     navigate("/practice");
   };  
 
-  // Group skills by domain
+  // 그룹화된 도메인 + 스킬 + 난이도
   const groupedSkills = selectedDomains.map(domain => {
-    // Find skills for this domain
     const domainSkills = selectedSkills.filter(skill => 
       domain.skills.some(s => s.id === skill.id)
     );
@@ -38,11 +35,17 @@ const Summary = () => {
     return {
       domain,
       skills: domainSkills.map(skill => {
-        // Find the difficulty for this skill
         const skillDiff = skillDifficulties.find(sd => sd.skillId === skill.id);
+        const difficulty = skillDiff?.difficulty || 'Medium';
+
+        const count = questions.filter(q => 
+          q.skill === skill.name && q.difficulty === difficulty
+        ).length;
+
         return {
           ...skill,
-          difficulty: skillDiff?.difficulty || 'Medium' // Default to Medium if not found
+          difficulty,
+          count
         };
       })
     };
@@ -77,7 +80,12 @@ const Summary = () => {
               <ul className="space-y-3">
                 {skills.map(skill => (
                   <li key={skill.id} className="flex justify-between items-center">
-                    <span>{skill.name}</span>
+                    <span>
+                      {skill.name}
+                      <span className="text-muted-foreground text-sm ml-2">
+                        [{skill.count} questions]
+                      </span>
+                    </span>
                     <Badge variant={
                       skill.difficulty === 'Hard' ? 'destructive' : 
                       skill.difficulty === 'Easy' ? 'outline' : 
@@ -93,7 +101,10 @@ const Summary = () => {
         ))}
       </div>
 
-      <div className="mt-8 flex justify-center">
+      <div className="mt-8 flex justify-center gap-4">
+        <Button variant="outline" onClick={handleStartOver}>
+          Start Over
+        </Button>
         <Button onClick={handleStartPractice}>
           Start Practice
         </Button>

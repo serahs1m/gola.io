@@ -14,6 +14,7 @@ export interface QuestionBankContextType {
   selectedDifficulties: Difficulty[];
   skillDifficulties: SkillDifficulty[];
   filteredQuestions: Question[];
+  questions: Question[];
   setSelectedDomain: (domain: Domain) => void; // Keep for backward compatibility
   toggleDomainSelection: (domain: Domain) => void;
   setSelectedDomains: (domains: Domain[]) => void;
@@ -96,7 +97,8 @@ export const QuestionBankProvider: React.FC<{ children: ReactNode }> = ({ childr
         setSelectedDifficulties,
         setSkillDifficulties,
         resetSelections,
-        filteredQuestions
+        filteredQuestions,
+        questions: allQuestions,
       }}
     >
       {children}

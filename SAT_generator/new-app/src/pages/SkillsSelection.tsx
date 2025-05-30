@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -10,7 +10,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 const SkillsSelection = () => {
   const { domainId } = useParams<{ domainId: string }>();
   const navigate = useNavigate();
-  const { selectedDomains, selectedSkills, setSelectedDomains, setSelectedSkills } = useQuestionBank();
+  const { selectedDomains, selectedSkills, setSelectedDomains, setSelectedSkills, questions } = useQuestionBank();
 
   useEffect(() => {
     if (domainId === 'combined') {
@@ -44,6 +44,14 @@ const SkillsSelection = () => {
       navigate(`/difficulties/${domainId}`);
     }
   };
+
+  const questionCountMap = useMemo(() => {
+    const countMap: Record<string, number> = {};
+    questions.forEach(q => {
+      countMap[q.skill] = (countMap[q.skill] || 0) + 1;
+    });
+    return countMap;
+  }, [questions]);
 
   const domainsToShow = domainId === 'combined'
     ? selectedDomains
@@ -82,7 +90,10 @@ const SkillsSelection = () => {
                       onCheckedChange={() => handleSkillToggle(skill)}
                     />
                     <label htmlFor={skill.id} className="text-sm font-medium leading-none">
-                      {skill.name}
+                      {skill.name}{" "}
+                      {questionCountMap[skill.name] ? (
+                        <span className="text-gray-500">[{questionCountMap[skill.name]}]</span>
+                      ) : null}
                     </label>
                   </div>
                 ))}

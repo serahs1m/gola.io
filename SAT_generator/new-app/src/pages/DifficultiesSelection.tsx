@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -14,49 +13,51 @@ const DifficultiesSelection = () => {
   const { 
     selectedDomains, 
     selectedSkills, 
-    selectedDifficulties, 
     setSelectedDifficulties, 
-    setSkillDifficulties 
+    setSkillDifficulties,
+    questions  
   } = useQuestionBank();
-  
-  // Use state to track individual skill difficulties
+
   const [skillDifficulties, setSkillDifficultiesState] = useState<Record<string, string>>(
-    // Initialize with any previously selected difficulties as defaults
     selectedSkills.reduce((acc, skill) => {
-      acc[skill.id] = 'Medium'; // Default to Medium
+      acc[skill.id] = 'Medium'; // 기본값
       return acc;
     }, {} as Record<string, string>)
   );
-  
+
   if (selectedDomains.length === 0 || selectedSkills.length === 0) {
-    // If no domains are selected or no skills are selected, redirect to home
     React.useEffect(() => {
       navigate('/');
     }, [navigate]);
     return null;
   }
-  
+
   const handleDifficultyChange = (skillId: string, difficulty: string) => {
     setSkillDifficultiesState(prev => ({
       ...prev,
       [skillId]: difficulty
     }));
   };
-  
+
   const handleSubmit = () => {
-    // Convert skill difficulties to overall selected difficulties
-    // This keeps compatibility with the existing context structure
     const uniqueDifficulties = Array.from(new Set(Object.values(skillDifficulties)));
     setSelectedDifficulties(uniqueDifficulties as typeof difficulties);
-    
-    // Store the skill-specific difficulties in context
+
     const skillDifficultyArray = Object.entries(skillDifficulties).map(([skillId, difficulty]) => ({
       skillId,
       difficulty: difficulty as typeof difficulties[number]
     }));
-    
+
     setSkillDifficulties(skillDifficultyArray);
     navigate('/summary');
+  };
+
+  const getSkillNameById = (id: string): string | undefined => {
+    for (const domain of domains) {
+      const match = domain.skills.find(skill => skill.id === id);
+      if (match) return match.name;
+    }
+    return undefined;
   };
 
   return (
@@ -78,32 +79,42 @@ const DifficultiesSelection = () => {
 
       <div className="space-y-6">
         {selectedSkills.map(skill => {
-          // Find which domain this skill belongs to
-          const domain = selectedDomains.find(d => 
-            d.skills.some(s => s.id === skill.id)
-          );
+          const domain = selectedDomains.find(d => d.skills.some(s => s.id === skill.id));
+          const currentDifficulty = skillDifficulties[skill.id] || 'Medium';
+          const matchingCount = questions.filter(q =>
+            q.skill === skill.name && q.difficulty === currentDifficulty
+          ).length;
 
           return (
             <Card key={skill.id}>
               <CardHeader>
-                <CardTitle>{skill.name}</CardTitle>
+                <CardTitle className="flex justify-between items-center">
+                  {skill.name}
+                  <span className="text-sm text-muted-foreground">[{matchingCount} questions]</span>
+                </CardTitle>
                 {domain && <CardDescription>From {domain.name}</CardDescription>}
               </CardHeader>
               <CardContent>
-                <RadioGroup
-                  value={skillDifficulties[skill.id] || 'Medium'}
-                  onValueChange={(value) => handleDifficultyChange(skill.id, value)}
-                  className="flex flex-col sm:flex-row gap-4"
-                >
-                  {difficulties.map(difficulty => (
+              <RadioGroup
+                value={skillDifficulties[skill.id] || 'Medium'}
+                onValueChange={(value) => handleDifficultyChange(skill.id, value)}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                {difficulties.map(difficulty => {
+                  const count = questions.filter(q => 
+                    q.skill === skill.name && q.difficulty === difficulty
+                  ).length;
+
+                  return (
                     <div key={difficulty} className="flex items-center space-x-2">
                       <RadioGroupItem value={difficulty} id={`${skill.id}-${difficulty}`} />
                       <label htmlFor={`${skill.id}-${difficulty}`} className="text-sm font-medium">
-                        {difficulty}
+                        {difficulty} <span className="text-muted-foreground text-xs">[{count}]</span>
                       </label>
                     </div>
-                  ))}
-                </RadioGroup>
+                  );
+                })}
+              </RadioGroup>
               </CardContent>
             </Card>
           );
