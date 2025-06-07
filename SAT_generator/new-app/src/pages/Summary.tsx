@@ -1,14 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Button
-} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useQuestionBank } from "@/context/QuestionBankContext";
@@ -18,16 +16,16 @@ import { subDomains } from "@/data/satData";
 const Summary: React.FC = () => {
   const navigate = useNavigate();
   const {
-    selectedDomains,          // Top-level (Math / R&W)
+    selectedDomains,
     selectedSkills,
     selectedDifficulties,
     skillDifficulties,
     questions,
     setSkillDifficulties,
-    resetSelections
+    resetSelections,
   } = useQuestionBank();
 
-  /* 선택 정보가 없다면 홈으로 리다이렉트 */
+  /* 리다이렉트 가드 */
   React.useEffect(() => {
     if (
       selectedDomains.length === 0 ||
@@ -44,7 +42,6 @@ const Summary: React.FC = () => {
   };
 
   const handleStartPractice = () => {
-    /* 아직 per-skill 난이도 매핑이 없으면 기본 Medium 으로 생성 */
     if (skillDifficulties.length === 0) {
       setSkillDifficulties(
         selectedSkills.map((s) => ({ skillId: s.id, difficulty: "Medium" }))
@@ -53,19 +50,16 @@ const Summary: React.FC = () => {
     navigate("/practice");
   };
 
-  /* ───── 그룹화: TopDomain → 포함된 skill 집계 ───── */
+  // 그룹화된 도메인 + 스킬 + 난이도 정보
   const groupedSkills = selectedDomains.map((domain) => {
-    /* 1️⃣ 해당 TopDomain 이 포함하는 모든 skillId 수집 */
-    const skillIdsForDomain = domain.subDomains.flatMap(
+    const skillIds = domain.subDomains.flatMap(
       (sdId) => subDomains[sdId].skills.map((s) => s.id)
     );
 
-    /* 2️⃣ 선택된 skill 중 이 domain 소속만 필터 */
     const domainSkills = selectedSkills.filter((skill) =>
-      skillIdsForDomain.includes(skill.id)
+      skillIds.includes(skill.id)
     );
 
-    /* 3️⃣ 난이도·문항 수 계산 */
     return {
       domain,
       skills: domainSkills.map((skill) => {
@@ -79,18 +73,23 @@ const Summary: React.FC = () => {
         ).length;
 
         return { ...skill, difficulty, count };
-      })
+      }),
     };
   });
 
+  const bdLabel =
+    selectedDomains.length === 1 ? selectedDomains[0].name : "Mixed";
+
   return (
     <div className="container mx-auto py-8 px-4">
+      {/* Breadcrumb */}
       <Breadcrumbs
         items={[
-          { label: "Domains", href: "/domains" },
+          { label: "Subjects", href: "/domains" },
+          { label: bdLabel, href: "/domains" },
           { label: "Skills", href: "#" },
           { label: "Difficulties", href: "#" },
-          { label: "Summary", href: "/summary", active: true }
+          { label: "Summary", href: "/summary", active: true },
         ]}
       />
 

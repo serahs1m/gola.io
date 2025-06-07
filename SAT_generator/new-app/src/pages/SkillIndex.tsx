@@ -5,12 +5,13 @@ import SkillCard from "@/components/SkillCard";
 import { Button } from "@/components/ui/button";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useQuestionBank } from "@/context/QuestionBankContext";
-
+import { getTopDomainBySubId } from "@/utils/breadcrumb";
 
 const SkillIndex: React.FC = () => {
   const { subDomainId } = useParams<{ subDomainId: string }>();
   const sub = subDomainId ? subDomains[subDomainId] : null;
   const navigate = useNavigate();
+  const topDom = getTopDomainBySubId(subDomainId!);
 
   const {
     selectedSkills,
@@ -54,7 +55,8 @@ const SkillIndex: React.FC = () => {
       {/* ───── Bread-crumbs ───── */}
       <Breadcrumbs
         items={[
-          { label: "Domains", href: "/domains" },
+          { label: "Subjects", href: "/domains" },
+          { label: topDom?.name ?? "?", href: `/domains/${topDom?.id}` },
           { label: "Skills", href: `/skills/${subDomainId}`, active: true },
         ]}
       />

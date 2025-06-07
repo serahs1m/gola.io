@@ -19,11 +19,13 @@ import {
   type Skill,
 } from "@/data/satData";
 import { useQuestionBank } from "@/context/QuestionBankContext";
+import { getTopDomainBySubId } from "@/utils/breadcrumb";
 
 const DifficultiesSelection: React.FC = () => {
   /* 🔑 라우터 param  이름을 subDomainId 로 맞춤 */
   const { subDomainId } = useParams<{ subDomainId: string }>();
   const navigate = useNavigate();
+  const topDom = getTopDomainBySubId(subDomainId!);
 
   const {
     selectedDomains,
@@ -86,17 +88,14 @@ const DifficultiesSelection: React.FC = () => {
   /* ------------------- render ------------------- */
   return (
     <div className="container mx-auto py-8 px-4">
-      <Breadcrumbs
-        items={[
-          { label: "Domains", href: "/domains" },
-          { label: "Skills", href: `/skills/${subDomainId}` },
-          {
-            label: "Difficulties",
-            href: `/difficulties/${subDomainId}`,
-            active: true,
-          },
-        ]}
-      />
+    <Breadcrumbs
+      items={[
+        { label: "Subjects", href: "/domains" },
+        { label: topDom?.name!, href: `/domains/${topDom?.id}` },
+        { label: "Skills", href: `/skills/${subDomainId}` },
+        { label: "Difficulties", href: `/difficulties/${subDomainId}`, active: true },
+      ]}
+    />
 
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold mb-2">
