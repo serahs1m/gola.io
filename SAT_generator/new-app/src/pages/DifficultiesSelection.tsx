@@ -120,7 +120,7 @@ const DifficultiesSelection: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex justify-between items-center">
                   {skill.name}
-                  <Badge variant="secondary">[{matchingCount} q]</Badge>
+                  <Badge variant="secondary">[{matchingCount}]</Badge>
                 </CardTitle>
                 {topDomain && (
                   <CardDescription>From {topDomain.name}</CardDescription>
