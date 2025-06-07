@@ -1,22 +1,27 @@
-// src/pages/SignIn.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { auth, googleProvider /*, appleProvider, microsoftProvider ...*/ } from "@/firebase";
+import { auth, googleProvider } from "@/firebase";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 
 export default function SignIn() {
-  /** ---------------- state ---------------- */
+  // Step: EMAIL or PASSWORD
   const [step, setStep] = useState<"EMAIL" | "PASSWORD">("EMAIL");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  /** ---------------- handlers ------------- */
+  // Always reset to EMAIL step on mount
+  useEffect(() => {
+    setStep("EMAIL");
+    setEmail("");
+    setPassword("");
+  }, []);
+
   const handleContinue = () => {
     if (!email.trim()) return;
     setStep("PASSWORD");
@@ -33,10 +38,12 @@ export default function SignIn() {
   const handleEmailSignIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      // 이메일-패스워드 쌍이 없다면 회원가입 시도
-      if ((err as any).code === "auth/user-not-found") handleSignUp();
-      else console.error(err);
+    } catch (err: any) {
+      if (err.code === "auth/user-not-found") {
+        handleSignUp(); // fallback to sign up
+      } else {
+        console.error(err);
+      }
     }
   };
 
@@ -48,16 +55,14 @@ export default function SignIn() {
     }
   };
 
-  /** ---------------- ui ------------------- */
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md space-y-6">
-        {/* logo / title */}
         <h1 className="text-3xl font-semibold text-center tracking-tight">
           {step === "EMAIL" ? "다시 오신 걸 환영합니다" : "비밀번호를 입력하세요"}
         </h1>
 
-        {/* ----- STEP 1 : email ----- */}
+        {/* EMAIL STEP */}
         {step === "EMAIL" && (
           <>
             <input
@@ -81,21 +86,35 @@ export default function SignIn() {
               <div className="flex-grow h-px bg-gray-200" />
             </div>
 
-            {/* 소셜 버튼들 */}
-            <SocialBtn icon={<FcGoogle size={20} />} label="Google로 계속하기" onClick={handleGoogleSignIn} />
-            <SocialBtn icon={<FaApple size={18} />} label="Apple로 계속하기" disabled />
-            <SocialBtn icon={<FiPhone size={18} />} label="폰으로 계속하기" disabled />
+            <SocialBtn
+              icon={<FcGoogle size={20} />}
+              label="Google로 계속하기"
+              onClick={handleGoogleSignIn}
+            />
+            <SocialBtn
+              icon={<FaApple size={18} />}
+              label="Apple로 계속하기"
+              disabled
+            />
+            <SocialBtn
+              icon={<FiPhone size={18} />}
+              label="폰으로 계속하기"
+              disabled
+            />
 
             <p className="text-center text-xs text-gray-500">
-              계정이 없으신가요?{" "}
-              <span className="underline cursor-pointer" onClick={() => setStep("PASSWORD")}>
-                회원 가입
+              이미 계정이 있으신가요?{" "}
+              <span
+                className="underline cursor-pointer"
+                onClick={() => setStep("PASSWORD")}
+              >
+                로그인
               </span>
             </p>
           </>
         )}
 
-        {/* ----- STEP 2 : password ----- */}
+        {/* PASSWORD STEP */}
         {step === "PASSWORD" && (
           <>
             <input
@@ -133,16 +152,14 @@ export default function SignIn() {
   );
 }
 
-/** ------------------------------------------------------------------ */
-/** 재사용 가능한 소셜 버튼 컴포넌트                                   */
-interface SBProps {
+interface SocialBtnProps {
   icon: React.ReactNode;
   label: string;
   onClick?: () => void;
   disabled?: boolean;
 }
 
-function SocialBtn({ icon, label, onClick, disabled }: SBProps) {
+function SocialBtn({ icon, label, onClick, disabled }: SocialBtnProps) {
   return (
     <button
       onClick={onClick}

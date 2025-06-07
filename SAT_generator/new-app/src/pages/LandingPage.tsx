@@ -94,7 +94,7 @@ export default function LandingPage() {
           </div>
       </div>
       <div data-layer="Button" data-type="Primary" className="Button size- px-5 py-3.5 bg-blue-100 rounded-full flex flex-col justify-center items-center gap-2.5">
-      <Link to="/index">
+      <Link to="/domains">
   <div data-layer="Learn More" className="LearnMore text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">
     Start Practicing
   </div>
@@ -133,7 +133,7 @@ export default function LandingPage() {
     <div data-layer="How It Works Step 1" className="HowItWorksStep1 self-stretch inline-flex justify-between items-start">
       <div data-layer="How It Works Title" className="HowItWorksTitle text-center justify-start text-black text-5xl font-normal font-['Crimson_Text'] leading-10">Map Your Success</div>
       <div data-layer="Button" data-type="Primary" className="Button size- px-5 py-3.5 bg-blue-100 rounded-full inline-flex flex-col justify-center items-center gap-2.5">
-      <Link to="/index">
+      <Link to="/domains">
   <div
     data-layer="Learn More"
     className="LearnMore text-center justify-start text-black text-sm font-bold font-grotesk leading-tight"
