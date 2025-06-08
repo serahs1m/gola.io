@@ -22,6 +22,7 @@ import AnalyzeLoadingPage from "@/pages/AnalyzeLoadingPage";
 import TestJson from "@/pages/TestJson";
 import SignIn from "@/pages/SignIn";
 import NotFound from "@/pages/NotFound";
+import Header from "@/components/Header";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+          <Header />
             {/* Header가 따로 있다면 여기에서 import 후 삽입 */}
             <div className="pt-[150px]">
               <Routes>
