@@ -31,5 +31,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "../../src/pages/signup.tsx", "../../src/pages/login.tsx"]
+  "include": ["src"]
 }

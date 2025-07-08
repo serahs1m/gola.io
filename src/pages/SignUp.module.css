@@ -1,0 +1,347 @@
+.getStartedNow {
+    position: relative;
+    font-weight: 500;
+}
+.getStartedNowWrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 52.5px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 32px;
+}
+.nameWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.enterYourNameWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+}
+.frameWrapper {
+    width: 404px;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    height: 32px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 0px 10px 10px;
+    font-size: 10px;
+    color: #d9d9d9;
+}
+.frameGroup {
+    position: absolute;
+    top: 110.53px;
+    left: 0px;
+    width: 404px;
+    height: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.frameDiv {
+    width: 404px;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    height: 32px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 0px 10px 10px;
+    font-size: 10px;
+    color: #d9d9d9;
+}
+.frameContainer {
+    position: absolute;
+    top: 188.23px;
+    left: 0px;
+    width: 404px;
+    height: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.frameParent1 {
+    position: absolute;
+    top: 265.92px;
+    left: 0px;
+    width: 404px;
+    height: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.frameChild {
+    position: absolute;
+    top: 8px;
+    left: -1px;
+    border-top: 2px solid #f5f5f5;
+    box-sizing: border-box;
+    width: 402px;
+    height: 2px;
+}
+.orWrapper {
+    position: absolute;
+    top: 0px;
+    left: 190px;
+    background-color: #fff;
+    width: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 3px;
+    box-sizing: border-box;
+}
+.lineParent {
+    position: absolute;
+    top: 450px;
+    left: 0px;
+    width: 400px;
+    height: 14px;
+    font-size: 9px;
+}
+.termsPolicy {
+    text-decoration: underline;
+}
+.iAgreeToContainer {
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    font-weight: 500;
+    display: inline-block;
+    width: 200px;
+    height: 15.3px;
+}
+.groupChild {
+    position: absolute;
+    top: 2.19px;
+    left: 0px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    width: 9px;
+    height: 9.8px;
+}
+.iAgreeToTheTermsPolicyParent {
+    position: absolute;
+    top: 343.62px;
+    left: 0px;
+    width: 143px;
+    height: 15.3px;
+    font-size: 9px;
+}
+.haveAnAccount {
+    white-space: pre-wrap;
+}
+.signIn {
+    color: #0f3dde;
+}
+.haveAnAccountContainer {
+    position: absolute;
+    top: -70px;
+    left: 0px;
+    font-weight: 500;
+    display: inline-block;
+    width: 300px;
+    height: 23.2px;
+}
+.haveAnAccountSignInWrapper {
+    position: absolute;
+    top: 559.77px;
+    left: 93px;
+    width: 229px;
+    height: 23.2px;
+}
+.frameItem {
+    width: 31px;
+    height: 15px;
+}
+
+.frameWrapper2 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 404px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.login {
+    position: absolute;
+    top: 6px;
+    left: 185px;
+}
+.instanceParent {
+    position: absolute;
+    top: 388.49px;
+    left: 0px;
+    background-color: #edf2f7;
+    width: 404px;
+    height: 35px;
+    font-size: 13px;
+    color: #fff;
+}
+.icons8Google1 {
+    width: 24px;
+    position: relative;
+    height: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.icons8Google1Parent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.frameWrapper4 {
+    position: absolute;
+    top: 540px;
+    left: 0px;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 4px 20px;
+    white-space: nowrap;
+    font-size: 12px;
+    cursor: pointer;
+}
+.icons8AppleLogo1Parent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.frameWrapper5 {
+    position: absolute;
+    top: 540px;
+    left: 213px;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    width: 190px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 20px;
+    white-space: nowrap;
+    font-size: 12px;
+}
+.frameParent {
+    width: 404px;
+    position: relative;
+    height: 638px;
+    left: 200px;
+}
+.signUpInner {
+    position: absolute;
+    top: 70px;
+    left: 175px;
+    height: 638px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0px 0px 64px;
+    box-sizing: border-box;
+}
+.loginimg {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    border-radius: 45px 0px 0px 45px;
+    width: 781.5px;
+    height: 1042px;
+    object-fit: cover;
+}
+.signUp {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    height: 100vh;
+    overflow: hidden;
+    text-align: left;
+    font-size: 14px;
+    color: #000;
+    font-family: Poppins;
+}
+
+.logo {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    text-decoration: none;
+    z-index: 10;
+  }
+
+  .input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 8px;
+    background: transparent;
+  }
+  
+  .loginButton {
+    width: 404px;
+    border-radius: 10px;
+    background-color: #3a5b22;
+    border: 1px solid #3a5b22;
+    box-sizing: border-box;
+    height: 32px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px;
+    cursor: pointer; /* ✅ 추가 */
+  }
+  
+  
+  .inputBox {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: #000;
+  }
+  

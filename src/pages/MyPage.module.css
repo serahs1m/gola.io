@@ -1,0 +1,524 @@
+.div {
+    position: absolute;
+    top: 188px;
+    left: 615px;
+    font-size: 14px;
+    line-height: 22px;
+    font-family: var(--font-pingfang-sc);
+    color: var(--color-lightslategray);
+    display: none;
+}
+.profileSettingChild {
+    position: absolute;
+    height: 5.08%;
+    width: 3.61%;
+    top: 4.1%;
+    right: 2.78%;
+    bottom: 90.82%;
+    left: 93.61%;
+    border-radius: var(--br-10);
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+}
+.profileSettingItem {
+    position: absolute;
+    height: 5.08%;
+    width: 3.61%;
+    top: 4.1%;
+    right: 7.78%;
+    bottom: 90.82%;
+    left: 88.61%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.welcomeAmanda {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    font-weight: 500;
+}
+.tue07June {
+    position: absolute;
+    top: 66.67%;
+    left: 0%;
+    font-size: var(--font-size-16);
+    font-weight: 300;
+    color: var(--color-darkgray);
+}
+.welcomeAmandaParent {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+}
+.profileSettingInner {
+    position: absolute;
+    height: 7.03%;
+    width: 16.18%;
+    top: 3.13%;
+    right: 75.63%;
+    bottom: 89.84%;
+    left: 8.19%;
+    font-size: 24px;
+    color: var(--color-darkslategray);
+}
+.groupChild {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    border-radius: var(--br-8);
+    background-color: var(--color-white);
+}
+.vuesaxlinearsearchNormalIcon {
+    position: absolute;
+    height: 46.15%;
+    width: 6.78%;
+    top: 26.92%;
+    right: 87.57%;
+    bottom: 26.92%;
+    left: 5.65%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.search {
+    position: absolute;
+    top: 26.92%;
+    left: 16.95%;
+}
+.rectangleParent {
+    position: absolute;
+    height: 5.08%;
+    width: 24.58%;
+    top: 4.1%;
+    right: 12.78%;
+    bottom: 90.82%;
+    left: 62.64%;
+    color: var(--color-darkgray);
+}
+.rectangleDiv {
+    position: absolute;
+    height: 100%;
+    width: 5.42%;
+    top: 0%;
+    right: 94.58%;
+    bottom: 0%;
+    left: 0%;
+    background-color: var(--color-white);
+}
+.profileSettingChild1 {
+    position: absolute;
+    height: 5.66%;
+    width: 8.4%;
+    top: 15.53%;
+    right: 94.58%;
+    bottom: 78.81%;
+    left: -2.99%;
+    background: linear-gradient(269.84deg, var(--color-dodgerblue), rgba(65, 130, 249, 0.01) 99.99%);
+    opacity: 0.2;
+}
+.vuesaxlineargraphIcon {
+    position: absolute;
+    height: 2.34%;
+    width: 1.67%;
+    top: 24.8%;
+    right: 96.46%;
+    bottom: 72.85%;
+    left: 1.88%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    opacity: 0.2;
+}
+.vuesaxlinearelement4Icon {
+    position: absolute;
+    height: 2.34%;
+    width: 1.67%;
+    top: 17.19%;
+    right: 96.46%;
+    bottom: 80.47%;
+    left: 1.88%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.vuesaxlinearmedalStarIcon {
+    position: absolute;
+    height: 2.34%;
+    width: 1.67%;
+    top: 31.45%;
+    right: 96.46%;
+    bottom: 66.21%;
+    left: 1.88%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    opacity: 0.2;
+}
+.vuesaxlinearmessagesIcon {
+    position: absolute;
+    height: 2.34%;
+    width: 1.67%;
+    top: 38.09%;
+    right: 96.46%;
+    bottom: 59.57%;
+    left: 1.88%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    opacity: 0.2;
+}
+.vuesaxlinearsetting2Icon {
+    position: absolute;
+    height: 2.34%;
+    width: 1.67%;
+    top: 44.73%;
+    right: 96.46%;
+    bottom: 52.93%;
+    left: 1.88%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    opacity: 0.2;
+}
+.profileSettingChild2 {
+    position: absolute;
+    top: 136px;
+    left: 118px;
+    border-radius: var(--br-10);
+    background-color: var(--color-white);
+    width: 1282px;
+    height: 856px;
+}
+.fullName {
+    position: absolute;
+    top: 400px;
+    left: 150px;
+    opacity: 0.8;
+}
+.gender {
+    position: absolute;
+    top: 512px;
+    left: 150px;
+    opacity: 0.8;
+}
+.language {
+    position: absolute;
+    top: 624px;
+    left: 150px;
+    opacity: 0.8;
+}
+.nickName {
+    position: absolute;
+    top: 400px;
+    left: 775px;
+    opacity: 0.8;
+}
+.country {
+    position: absolute;
+    top: 512px;
+    left: 775px;
+    opacity: 0.8;
+}
+.timeZone {
+    position: absolute;
+    top: 624px;
+    left: 775px;
+    opacity: 0.8;
+}
+.rectangleIcon {
+    position: absolute;
+    top: 136px;
+    left: 118px;
+    width: 1282px;
+    height: 100px;
+    object-fit: cover;
+}
+.ellipseIcon {
+    position: absolute;
+    top: 268px;
+    left: 150px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.alexaRawles {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-weight: 500;
+}
+.alexarawlesgmailcom {
+    position: absolute;
+    top: 36px;
+    left: 0px;
+    font-size: var(--font-size-16);
+    opacity: 0.5;
+}
+.alexaRawlesParent {
+    position: absolute;
+    top: 288px;
+    left: 274px;
+    width: 198px;
+    height: 60px;
+    font-size: 20px;
+}
+.alexarawlesgmailcom1 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.monthAgo {
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    opacity: 0.5;
+}
+.alexarawlesgmailcomParent {
+    position: absolute;
+    top: 791px;
+    left: 218px;
+    width: 198px;
+    height: 54px;
+}
+.groupItem {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    border-radius: var(--br-8);
+    background-color: var(--color-dodgerblue);
+}
+.edit {
+    position: absolute;
+    top: 22.73%;
+    left: 34.41%;
+}
+.rectangleGroup {
+    position: absolute;
+    height: 4.3%;
+    width: 6.46%;
+    top: 28.91%;
+    right: 5%;
+    bottom: 66.8%;
+    left: 88.54%;
+    color: var(--color-white);
+}
+.groupInner {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    border-radius: var(--br-8);
+    background-color: var(--color-dodgerblue);
+    opacity: 0.1;
+}
+.addEmailAddress {
+    position: absolute;
+    top: 22.73%;
+    left: 11.48%;
+}
+.rectangleContainer {
+    position: absolute;
+    height: 4.3%;
+    width: 14.51%;
+    top: 85.64%;
+    right: 75.07%;
+    bottom: 10.06%;
+    left: 10.42%;
+    color: var(--color-dodgerblue);
+}
+.profileSettingChild3 {
+    position: absolute;
+    height: 5.08%;
+    width: 41.18%;
+    top: 42.58%;
+    right: 48.4%;
+    bottom: 52.34%;
+    left: 10.42%;
+    border-radius: var(--br-8);
+    background-color: var(--color-whitesmoke);
+}
+.profileSettingChild4 {
+    position: absolute;
+    height: 5.08%;
+    width: 41.18%;
+    top: 53.52%;
+    right: 48.4%;
+    bottom: 41.41%;
+    left: 10.42%;
+    border-radius: var(--br-8);
+    background-color: var(--color-whitesmoke);
+}
+.vuesaxlineararrowDownIcon {
+    position: absolute;
+    top: 562px;
+    left: 699px;
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+}
+.profileSettingChild5 {
+    position: absolute;
+    height: 5.08%;
+    width: 41.18%;
+    top: 64.45%;
+    right: 48.4%;
+    bottom: 30.47%;
+    left: 10.42%;
+    border-radius: var(--br-8);
+    background-color: var(--color-whitesmoke);
+}
+.profileSettingChild6 {
+    position: absolute;
+    height: 5.08%;
+    width: 41.18%;
+    top: 42.58%;
+    right: 5%;
+    bottom: 52.34%;
+    left: 53.82%;
+    border-radius: var(--br-8);
+    background-color: var(--color-whitesmoke);
+}
+.profileSettingChild7 {
+    position: absolute;
+    height: 5.08%;
+    width: 41.18%;
+    top: 53.52%;
+    right: 5%;
+    bottom: 41.41%;
+    left: 53.82%;
+    border-radius: var(--br-8);
+    background-color: var(--color-whitesmoke);
+}
+.profileSettingChild8 {
+    position: absolute;
+    height: 5.08%;
+    width: 41.18%;
+    top: 64.45%;
+    right: 5%;
+    bottom: 30.47%;
+    left: 53.82%;
+    border-radius: var(--br-8);
+    background-color: var(--color-whitesmoke);
+}
+.yourFirstName {
+    position: absolute;
+    top: 43.95%;
+    left: 11.81%;
+    opacity: 0.4;
+}
+.yourFirstName1 {
+    position: absolute;
+    top: 54.88%;
+    left: 11.81%;
+    opacity: 0.4;
+}
+.yourFirstName2 {
+    position: absolute;
+    top: 65.82%;
+    left: 11.81%;
+    opacity: 0.4;
+}
+.yourFirstName3 {
+    position: absolute;
+    top: 43.95%;
+    left: 55.21%;
+    opacity: 0.4;
+}
+.yourFirstName4 {
+    position: absolute;
+    top: 54.88%;
+    left: 55.21%;
+    opacity: 0.4;
+}
+.yourFirstName5 {
+    position: absolute;
+    top: 65.82%;
+    left: 55.21%;
+    opacity: 0.4;
+}
+.vuesaxlineararrowDownIcon1 {
+    position: absolute;
+    top: 562px;
+    left: 1324px;
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+}
+.vuesaxlineararrowDownIcon2 {
+    position: absolute;
+    top: 674px;
+    left: 699px;
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+}
+.vuesaxlineararrowDownIcon3 {
+    position: absolute;
+    top: 674px;
+    left: 1324px;
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+}
+.myEmailAddress {
+    position: absolute;
+    top: 744px;
+    left: 150px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.ellipseDiv {
+    position: absolute;
+    top: 791px;
+    left: 150px;
+    border-radius: 50%;
+    background-color: var(--color-dodgerblue);
+    width: 48px;
+    height: 48px;
+    opacity: 0.1;
+}
+.vuesaxboldsmsIcon {
+    position: absolute;
+    top: 803px;
+    left: 162px;
+    width: 24px;
+    height: 24px;
+}
+.vuesaxboldgallery {
+    position: absolute;
+    top: 56px;
+    left: 1362px;
+    width: 24px;
+    height: 24px;
+}
+.profileSetting {
+    width: 100%;
+    position: relative;
+    background-color: var(--color-whitesmoke);
+    height: 1024px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-16);
+    color: var(--color-black);
+    font-family: var(--font-poppins);
+}
+

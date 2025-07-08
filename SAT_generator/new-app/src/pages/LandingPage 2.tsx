@@ -1,44 +1,32 @@
 import { Link } from "react-router-dom";
-import { FunctionComponent, useContext } from "react";
-import { useAuth } from "../context/authContext.tsx"; 
-
+// LandingPage.jsx
 export default function LandingPage() {
-  const { user, isLoading } = useAuth();
-  if (isLoading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
-  }
-  return (
-    <div className="Desktop w-full max-w-screen-xl mx-auto px-10 pb-5 relative bg-white flex flex-col justify-start items-center overflow-hidden">
-      {/* Navigation Bar */}
-      <div className="Navigation w-full h-36 max-w-[1500px] pt-5 pb-20 flex justify-between items-center z-10 relative">
-        <div className="Area justify-center text-black text-3xl font-medium font-grotesk leading-9">Q-Bank</div>
-        <Link to={user ? "/index" : "/login"}>
-          <div className="ButtonLinkout px-5 py-3.5 bg-indigo-400 rounded-full flex justify-center items-center gap-0.5">
-            <div className="LearnMore text-center text-black text-sm font-bold font-grotesk leading-tight">
-              {user ? "Start Practicing" : "Sign Up"}
-            </div>
-            <div className="Arrow">
-              <svg width="7" height="20" viewBox="0 0 7 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5.01037 11.9875V8.04598L5.64939 8.08556L0.735155 13.0055L0 12.2703L4.91423 7.35606L4.96513 7.99508H1.0066V6.99414L6 7.00545V11.9875H5.01037Z" fill="white"/>
-              </svg>
-            </div>
-          </div>
-        </Link>
+    return (
+      <>
+        {<div data-layer="Desktop" className="Desktop w-full max-w-screen-xl mx-auto px-10 pb-5 relative bg-white flex flex-col justify-start items-center overflow-hidden">
+  <div data-layer="Navigation" data-breakpoint="Desktop" className="Navigation self-stretch flex flex-col justify-start items-center">
+    <div data-layer="Navigation" className="Navigation w-full h-36 max-w-[1500px] pt-5 pb-20 flex justify-between items-center">
+    <div data-layer="Area" className="Area justify-center text-black text-3xl font-medium font-grotesk leading-9">Q-Bank</div>
+    <Link to="/login">
+    <div data-layer="Button linkout" data-state="Default" className="ButtonLinkout px-5 py-3.5 bg-indigo-400 rounded-full flex justify-center items-center gap-0.5">
+  <div className="LearnMore text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">
+    Sign In
+  </div>
+      <div data-svg-wrapper data-layer="Arrow" className="Arrow">
+          <svg width="7" height="20" viewBox="0 0 7 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.01037 11.9875V8.04598L5.64939 8.08556L0.735155 13.0055L0 12.2703L4.91423 7.35606L4.96513 7.99508H1.0066V6.99414L6 7.00545V11.9875H5.01037Z" fill="white"/>
+          </svg>
+        </div>
       </div>
-
-      {/* Floating Nav Items (fixed top layer) */}
-      <div className="NavItems px-6 py-5 fixed top-4 left-1/2 transform -translate-x-1/2 z-20 bg-white/40 rounded-[100px] backdrop-blur-lg inline-flex justify-start items-center gap-7 overflow-hidden">
-        <div className="NavLink1 text-center text-black text-sm font-bold font-grotesk leading-tight">Features</div>
-        <div className="NavLink2 text-center text-black text-sm font-bold font-grotesk leading-tight">Specifications</div>
-        <div className="NavLink3 text-center text-black text-sm font-bold font-grotesk leading-tight">How-to</div>
-        <div className="NavLink4 text-center text-black text-sm font-bold font-grotesk leading-tight">Contact Us</div>
-      </div>
+      </Link>
+    </div>
+  </div>
 
   <div data-layer="Hero section" className="HeroSection w-full max-w-[1500px] flex flex-col justify-start items-start gap-60 overflow-hidden">
     <div data-layer="Hero Title" className="HeroTitle self-stretch text-center justify-start text-black text-9xl font-normal font-['Crimson_Text'] leading-[102px]">Improve Yourself.</div>
     <div data-layer="Hero image" data-breakpoint="Desktop" className="HeroImage self-stretch h-96 relative bg-indigo-400/40 rounded-[30px]">
       <div data-layer="Ipad" className="Ipad w-[907px] h-[644px] left-[147px] top-[-141px] absolute bg-black rounded-3xl shadow-[0px_-4px_20px_0px_rgba(0,0,0,0.10)] border-l-2 border-r-2 border-t-2 border-white/50 overflow-hidden">
-        <img data-layer="Inner screen" className="InnerScreen w-[869.74px] h-[607.44px] left-[18.63px] top-[18.50px] absolute rounded-2xl" src="landing1.png" />
+        <img data-layer="Inner screen" className="InnerScreen w-[869.74px] h-[607.44px] left-[18.63px] top-[18.50px] absolute rounded-2xl" src="https://placehold.co/870x607" />
       </div>
     </div>
   </div>
@@ -95,7 +83,7 @@ export default function LandingPage() {
         </div>
       </div>
     </div>
-    <img data-layer="Hero Image" className="HeroImage self-stretch h-[620px] relative rounded-[30px]" src="landing2.png" />
+    <img data-layer="Hero Image" className="HeroImage self-stretch h-[620px] relative rounded-[30px]" src="https://placehold.co/1200x620" />
   </div>
   <div data-layer="Features carousel" className="FeaturesCarousel w-full h-[831px] max-w-[1500px] pb-28 inline-flex justify-start items-start gap-5">
     <div data-layer="Text" className="Text flex-1 self-stretch pt-14 pb-20 border-t border-gray-200 inline-flex flex-col justify-start items-start gap-10">
@@ -202,7 +190,6 @@ export default function LandingPage() {
   <div data-layer="Centered CTA" className="CenteredCta w-full max-w-[1500px] px-72 py-28 border-t-[0.50px] border-gray-200 flex flex-col justify-start items-center gap-10">
     <div data-layer="CTA Title" className="CtaTitle w-[800px] text-center justify-start text-black text-5xl font-normal font-['Crimson_Text'] leading-10">Join Thousands of Smarter Test-Takers</div>
     <div data-layer="CTA Description" className="CtaDescription self-stretch text-center justify-start text-neutral-500 text-base font-normal font-grotesk leading-tight">Sign up now to gain early access and crush your SAT with confidence.</div>
-    <Link to="/signup">
     <div data-layer="Button linkout" data-state="Default" className="ButtonLinkout size- px-5 py-3.5 bg-indigo-400 rounded-full inline-flex justify-center items-center gap-0.5">
     <div data-layer="Text" className="Text text-center justify-start text-white text-sm font-bold font-grotesk leading-tight">Sign Up</div>
     <div data-svg-wrapper data-layer="Arrow" className="Arrow">
@@ -211,7 +198,6 @@ export default function LandingPage() {
         </svg>
       </div>
     </div>
-    </Link>
   </div>
   <div data-layer="Footer" className="Footer w-full max-w-[1500px] pt-10 pb-5 border-t border-gray-200 flex flex-col justify-end items-start gap-20">
     <div data-layer="Links" className="Links self-stretch h-10 inline-flex justify-between items-center">
@@ -242,9 +228,8 @@ export default function LandingPage() {
 <div data-layer="Nav Link 3" className="NavLink3 text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">How-to</div>
 <div data-layer="Nav Link 4" className="NavLink4 text-center justify-start text-black text-sm font-bold font-grotesk leading-tight">Contact Us</div>
   </div>
-</div>
+</div>}
+      </>
     );
   }
-
-// Removed duplicate default export
   
