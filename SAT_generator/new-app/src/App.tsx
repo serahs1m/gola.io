@@ -4,10 +4,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QuestionBankProvider } from "./context/QuestionBankContext";
+import { AuthProvider } from "./context/authContext.tsx"; 
 
 // Pages
-import LandingPage from "./pages/LandingPage"; // ✅ "/" 연결
-import Index from "./pages/Index";             // ✅ "/index" 연결
+import LandingPage from "./pages/LandingPage";
+import Index from "./pages/Index";
 import SkillsSelection from "./pages/SkillsSelection";
 import DifficultiesSelection from "./pages/DifficultiesSelection";
 import Summary from "./pages/Summary";
@@ -16,36 +17,40 @@ import Practice from "./pages/Practice";
 import TestJson from "./pages/TestJson";
 import AnalyzePage from "./pages/AnalyzePage";
 import AnalyzeLoadingPage from "./pages/AnalyzeLoadingPage";
-import Login from "../../../src/pages/login";
-import Signup from "../../../src/pages/signup";
+import Login from "./pages/login";
+import SignUp from "./pages/signup";
+import MyPage from "./pages/MyPage";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <QuestionBankProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/index" element={<Index />} />
-            <Route path="/skills/:domainId" element={<SkillsSelection />} />
-            <Route path="/difficulties/:domainId" element={<DifficultiesSelection />} />
-            <Route path="/summary" element={<Summary />} />
-            <Route path="/practice" element={<Practice />} />
-            <Route path="/test-json" element={<TestJson />} />
-            <Route path="/analyze-loading" element={<AnalyzeLoadingPage />} />
-            <Route path="/analyze" element={<AnalyzePage />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} /> 
-          </Routes>
-        </BrowserRouter>
-      </QuestionBankProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <AuthProvider> 
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <QuestionBankProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/index" element={<Index />} />
+              <Route path="/skills/:domainId" element={<SkillsSelection />} />
+              <Route path="/difficulties/:domainId" element={<DifficultiesSelection />} />
+              <Route path="/summary" element={<Summary />} />
+              <Route path="/practice" element={<Practice />} />
+              <Route path="/test-json" element={<TestJson />} />
+              <Route path="/analyze-loading" element={<AnalyzeLoadingPage />} />
+              <Route path="/analyze" element={<AnalyzePage />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </QuestionBankProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </AuthProvider>
 );
 
 export default App;
