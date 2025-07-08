@@ -1,107 +1,73 @@
-# Overview
-This project consists of four Python scripts designed for text data preprocessing and analysis. These tools allow users to clean, transform, and analyze textual data from CSV files. Each script targets specific aspects of text analysis, including data cleaning, word statistics, POS tagging, and clause analysis.
+# Welcome to your Lovable project
 
----
+## Project info
 
-## Scripts and Their Features
+**URL**: https://lovable.dev/projects/8e207060-14c7-41fe-8513-288938ea2e69
 
-### 1. **Data_parser.py**
-`Data_parser.py` focuses on preprocessing and cleaning text data in CSV files.
+## How can I edit this code?
 
-**Features**:
-- Removes noise such as `NaN`, `Default`, `.`, and `,`.
-- Eliminates consecutive repeated words.
-- Combines all processed words from each file into a single row.
-- Overwrites the processed data back into the original file.
+There are several ways of editing your application.
 
-**Usage**:
-- The script interactively asks the user to select a CSV file for processing.
-- Cleans and transforms the file.
-- Designed to work with CSV files.
+**Use Lovable**
 
----
+Simply visit the [Lovable Project](https://lovable.dev/projects/8e207060-14c7-41fe-8513-288938ea2e69) and start prompting.
 
-### 2. **DataAnalyzer.py**
-`DataAnalyzer.py` is a tool for performing various analytical operations on preprocessed data.
+Changes made via Lovable will be committed automatically to this repo.
 
-**Features**:
-- Integrates `Data_parser.py` for preprocessing.
-- Provides four types of analysis:
-  1. **Word Frequency**: Counts occurrences of each word.
-  2. **Starting Letter Frequency**: Calculates the frequency of starting letters in words.
-  3. **Most Common Word Pairs**: Identifies and counts pairs of consecutive words.
-  4. **Word Length Analysis**: Computes average, maximum, and minimum word lengths.
+**Use your preferred IDE**
 
-**Usage**:
-- Preprocess a file using `Data_parser.py`.
-- Choose an analysis type for further exploration of the processed data.
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
----
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-### 3. **PosCounter.py**
-`PosCounter.py` provides Part-of-Speech (POS) analysis.
+Follow these steps:
 
-**Features**:
-- Counts POS occurrences in text.
-- Identifies sequences where a selected POS is followed by any other POS.
-- Outputs results to two CSV files:
-  1. **POS follow count**
-  2. **Total POS count**
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-**Usage**:
-- Choose a POS tag (e.g., NOUN, VERB) for sequential analysis.
-- Outputs results as CSV files for further inspection.
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
----
+# Step 3: Install the necessary dependencies.
+npm i
 
-### 4. **ClauseCounter.py**
-`ClauseCounter.py` analyzes clauses in text data.
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
+```
 
-**Features**:
-- Identifies and counts:
-  - Noun clauses
-  - Adjective clauses
-  - Adverb clauses
-  - Independent clauses
-  - Dependent clauses
-- Outputs the counts and samples of clauses detected.
+**Edit a file directly in GitHub**
 
-**Usage**:
-- Choose between POS and clause analysis.
-- Select a CSV file and analyze clause types within the text.
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
----
+**Use GitHub Codespaces**
 
-### 5. **Reconstruct.py**
-`Reconstruct.py` processes text data to recognize and reconstruct sentences based on refined linguistic rules.
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-**Features**:
-- Recognizes sentences using custom rules for length, part-of-speech (POS), and functional words.
-- Handles functional words and boundary POS tags intelligently.
-- Reconstructs text into well-defined sentences with appropriate boundaries.
-- Exports reconstructed sentences to a new CSV file.
+## What technologies are used for this project?
 
-**Usage**:
-- The script reads text from the selected file, applies sentence recognition rules, and outputs a new CSV file containing reconstructed sentences.
-- Example output file name: `Coriolanus.csv_reconstructed_sentences.csv`.
+This project is built with:
 
----
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-### 6. **Sentence_Generator.py**
-`Sentence_Generator.py` creates grammatically correct example sentences based on predefined sentence structures (e.g., 1형식, 2형식).
+## How can I deploy this project?
 
-**Features**:
-- Loads words tagged with POS (e.g., NOUN, VERB) from a CSV file.
-- Generates sentences following five predefined sentence structures:
-  1. **1형식**: S (Subject) + V (Verb)
-  2. **2형식**: S + V + C (Complement)
-  3. **3형식**: S + V + O (Object)
-  4. **4형식**: S + V + O1 (Indirect Object) + O2 (Direct Object)
-  5. **5형식**: S + V + O + C
-- Exports generated sentences to a new CSV file.
+Simply open [Lovable](https://lovable.dev/projects/8e207060-14c7-41fe-8513-288938ea2e69) and click on Share -> Publish.
 
-**Usage**:
-- Select a CSV file containing words with POS tags (columns: `Word`, `POS`).
-- The script generates example sentences for each structure and exports them to a new CSV file.
-- Example output file name: `Coriolanus.csv_generated_sentences_examples.csv`.
+## Can I connect a custom domain to my Lovable project?
 
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

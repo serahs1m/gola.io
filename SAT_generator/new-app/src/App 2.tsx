@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QuestionBankProvider } from "./context/QuestionBankContext";
 
 // Pages
-import LandingPage from "./pages/LandingPage"; // ✅ "/" 연결
-import Index from "./pages/Index";             // ✅ "/index" 연결
+import LandingPage from "./pages/LandingPage"; // ✅ "/" 연결됨
+import Index from "./pages/Index";             // ✅ "/index" 연결됨
 import SkillsSelection from "./pages/SkillsSelection";
 import DifficultiesSelection from "./pages/DifficultiesSelection";
 import Summary from "./pages/Summary";
@@ -38,9 +38,10 @@ const App = () => (
             <Route path="/test-json" element={<TestJson />} />
             <Route path="/analyze-loading" element={<AnalyzeLoadingPage />} />
             <Route path="/analyze" element={<AnalyzePage />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} /> 
           </Routes>
         </BrowserRouter>
       </QuestionBankProvider>
